@@ -33,18 +33,21 @@ resource "azurerm_storage_blob" "nixos-disk" {
   name                   = "disk.vhd"
   storage_account_name   = azurerm_storage_account.NixOS_Images.name
   storage_container_name = azurerm_storage_container.vhd.name
-  type                   = "Page" # Required by azurerm_image.
-  source                 = "./result/disk.vhd"
+  type                   = "Block" # Required by `content_md5`.
+
+  # https://github.com/hashicorp/terraform-provider-azurerm/issues/1990
+  source      = "./result/disk.vhd"
+  content_md5 = filemd5("./result/disk.vhd")
 }
 
-resource "azurerm_image" "nixos-image" {
-  name                = "nixos-image"
-  location            = azurerm_storage_account.NixOS_Images.location
-  resource_group_name = azurerm_resource_group.NixOS.name
-
-  os_disk {
-    os_type  = "Linux"
-    os_state = "Generalized"
-    blob_uri = azurerm_storage_blob.nixos-disk.id
-  }
-}
+# resource "azurerm_image" "nixos-image" {
+#   name                = "nixos-image"
+#   location            = azurerm_storage_account.NixOS_Images.location
+#   resource_group_name = azurerm_resource_group.NixOS.name
+#
+#   os_disk {
+#     os_type  = "Linux"
+#     os_state = "Generalized"
+#     blob_uri = azurerm_storage_blob.nixos-disk.id
+#   }
+# }
