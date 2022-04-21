@@ -10,6 +10,15 @@ terraform {
       version = "2.20.0"
     }
   }
+
+  cloud {
+    organization = "Vanilla-s-Lab"
+
+    # Execution Mode - Local
+    workspaces {
+      name = "azure-nix"
+    }
+  }
 }
 
 provider "azurerm" {
