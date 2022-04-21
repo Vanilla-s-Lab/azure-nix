@@ -1,0 +1,44 @@
+name: update_image
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * 0"
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  update_image:
+    runs-on: ubuntu-latest
+    environment: Terraform_ARM
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: cachix/install-nix-action@v15
+        with:
+          # https://github.com/marketplace/actions/install-nix#faq=
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            system-features = nixos-test benchmark big-parallel kvm
+
+      # https://nix.dev/tutorials/continuous-integration-github-actions
+      - uses: cachix/cachix-action@v10
+        with:
+          name: nixosimages
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+
+      - run: nix flake update
+      - run: nix build .#azure-image -v -L
+
+      - uses: hashicorp/setup-terraform@v2
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - run: terraform init
+      - run: terraform apply -auto-approve
+        env:
+          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
