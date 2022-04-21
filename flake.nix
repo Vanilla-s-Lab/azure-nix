@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-21.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
   };
 
   outputs = { self, ... }@inputs: with inputs; rec {
@@ -11,6 +12,13 @@
       inherit system;
       specialArgs = { inherit nixpkgs; };
       modules = [ ./nixos/configuration.nix ];
+    };
+
+    pkgsUnstable = import nixpkgs-unstable { inherit system; };
+    devShell."${system}" = pkgsUnstable.mkShell {
+      name = "Terraform_Azure";
+      nativeBuildInputs = with pkgsUnstable;
+        [ terraform azure-cli ];
     };
   };
 }
