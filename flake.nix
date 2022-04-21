@@ -8,7 +8,7 @@
     azure = nixpkgs.lib.nixosSystem rec {
       system = "x86_64-linux";
       specialArgs = { inherit nixpkgs; };
-      modules = [ ./configuration.nix ];
+      modules = [ ./nixos/configuration.nix ];
     };
   };
 }
