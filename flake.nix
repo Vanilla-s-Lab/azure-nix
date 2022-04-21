@@ -4,13 +4,12 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
   };
 
-  outputs = { self, ... }@inputs: with inputs; rec {
+  outputs = { self, nixpkgs, nixpkgs-unstable, ... }: rec {
     system = "x86_64-linux";
 
     azure-image = azure.config.system.build.azureImage;
     azure = nixpkgs.lib.nixosSystem {
       inherit system;
-      specialArgs = { inherit nixpkgs; };
       modules = [ ./nixos/configuration.nix ];
     };
 
