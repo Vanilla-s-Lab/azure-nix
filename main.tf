@@ -25,14 +25,14 @@ resource "azurerm_storage_blob" "nixos-disk" {
   source                 = "./result/disk.vhd"
 }
 
-# resource "azurerm_image" "nixos-image" {
-#   name                = "nixos-image"
-#   location            = azurerm_storage_account.NixOS_Images.location
-#   resource_group_name = azurerm_resource_group.NixOS.name
-#
-#   os_disk {
-#     os_type  = "Linux"
-#     os_state = "Generalized"
-#     blob_uri = azurerm_storage_blob.nixos-disk.id
-#   }
-# }
+resource "azurerm_image" "nixos-image" {
+  name                = "nixos-image"
+  location            = azurerm_storage_account.NixOS_Images.location
+  resource_group_name = azurerm_resource_group.NixOS.name
+
+  os_disk {
+    os_type  = "Linux"
+    os_state = "Generalized"
+    blob_uri = azurerm_storage_blob.nixos-disk.id
+  }
+}
