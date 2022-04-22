@@ -35,3 +35,29 @@ resource "azurerm_network_interface" "example" {
 }
 
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_virtual_machine
+
+resource "azurerm_linux_virtual_machine" "NixOS" {
+  name                = "NixOS"
+  resource_group_name = azurerm_resource_group.NixOS.name
+  location            = azurerm_resource_group.NixOS.location
+  size                = "Standard_B1ls" # Cheapest server (?
+
+  admin_username                  = "adminuser"
+  disable_password_authentication = true
+  admin_ssh_key {
+    username   = "adminuser"
+    public_key = file("./data/ssh-rsa.pub")
+  }
+
+  network_interface_ids = [
+    azurerm_network_interface.example.id,
+  ]
+
+  os_disk {
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
+  }
+
+  # The final job finished. I'm exhausted.
+  source_image_id = azurerm_image.nixos-image.id
+}
