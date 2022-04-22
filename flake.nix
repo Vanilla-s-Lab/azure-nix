@@ -17,7 +17,7 @@
     devShell."${system}" = pkgsUnstable.mkShell {
       name = "Terraform_Azure";
       nativeBuildInputs = with pkgsUnstable;
-        [ terraform azure-cli ];
+        [ terraform azure-cli azure-storage-azcopy ];
     };
   };
 }
