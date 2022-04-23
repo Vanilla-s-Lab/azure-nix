@@ -1,21 +1,18 @@
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/service_principal_client_secret
 
-output "client_id" {
-  value       = azuread_application.example.application_id
-  sensitive   = true
-  description = "ARM_CLIENT_ID"
+output "ARM_CLIENT_ID" {
+  value     = azuread_application.Terraform.application_id
+  sensitive = true
 }
 
-output "client_secret" {
-  value       = azuread_application_password.example.value
-  sensitive   = true
-  description = "ARM_CLIENT_SECRET"
+output "ARM_CLIENT_SECRET" {
+  value     = azuread_application_password.default.value
+  sensitive = true
 }
 
-output "tenant_id" {
-  value       = azuread_service_principal.example.application_tenant_id
-  sensitive   = true
-  description = "ARM_TENANT_ID"
+output "ARM_TENANT_ID" {
+  value     = azuread_service_principal.default.application_tenant_id
+  sensitive = true
 }
 
 # az login --service-principal -u CLIENT_ID -p CLIENT_SECRET --tenant TENANT_ID

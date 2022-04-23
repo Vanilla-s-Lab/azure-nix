@@ -1,13 +1,13 @@
-resource "azuread_application" "example" {
-  display_name = "example"
+resource "azuread_application" "Terraform" {
+  display_name = "Terraform"
 }
 
-resource "azuread_application_password" "example" {
-  application_object_id = azuread_application.example.object_id
+resource "azuread_application_password" "default" {
+  application_object_id = azuread_application.Terraform.object_id
 }
 
-resource "azuread_service_principal" "example" {
-  application_id = azuread_application.example.application_id
+resource "azuread_service_principal" "default" {
+  application_id = azuread_application.Terraform.application_id
 }
 
 data "azurerm_subscription" "Student" {}
@@ -16,5 +16,5 @@ data "azurerm_subscription" "Student" {}
 resource "azurerm_role_assignment" "main" {
   scope                = data.azurerm_subscription.Student.id
   role_definition_name = "Contributor"
-  principal_id         = azuread_service_principal.example.id
+  principal_id         = azuread_service_principal.default.id
 }
