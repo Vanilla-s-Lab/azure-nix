@@ -1,3 +1,5 @@
+# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_virtual_machine
+
 resource "azurerm_virtual_network" "default" {
   name                = "default"
   address_space       = ["10.0.0.0/16"]
@@ -33,8 +35,6 @@ resource "azurerm_network_interface" "default" {
     public_ip_address_id          = azurerm_public_ip.default.id
   }
 }
-
-# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_virtual_machine
 
 resource "azurerm_linux_virtual_machine" "NixOS" {
   name                = "NixOS"
