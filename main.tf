@@ -17,8 +17,7 @@ resource "azurerm_storage_container" "vhd" {
 }
 
 resource "azurerm_storage_blob" "nixos-disk" {
-  # TODO: Use `formatdate("YYYY-MM-DD", timestamp())` in future.
-  name                   = format("%s_%s", timestamp(), "disk.vhd")
+  name                   = "disk.vhd"
   storage_account_name   = azurerm_storage_account.NixOS_Images.name
   storage_container_name = azurerm_storage_container.vhd.name
   type                   = "Page" # Required by `azurerm_image`.
