@@ -1,6 +1,6 @@
 resource "azurerm_resource_group" "NixOS" {
   name     = "NixOS"
-  location = "Central India"
+  location = "East Asia"
 }
 
 resource "azurerm_storage_account" "NixOS_Images" {
