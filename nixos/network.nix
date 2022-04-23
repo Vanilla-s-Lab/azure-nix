@@ -1,0 +1,4 @@
+{ ... }:
+{
+  networking.firewall.allowPing = false;
+}
