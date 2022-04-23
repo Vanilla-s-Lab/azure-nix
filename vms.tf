@@ -1,36 +1,36 @@
-resource "azurerm_virtual_network" "example" {
-  name                = "example-network"
+resource "azurerm_virtual_network" "default" {
+  name                = "default"
   address_space       = ["10.0.0.0/16"]
   location            = azurerm_resource_group.NixOS.location
   resource_group_name = azurerm_resource_group.NixOS.name
 }
 
-resource "azurerm_subnet" "example" {
-  name                 = "internal"
+resource "azurerm_subnet" "default" {
+  name                 = "default"
   resource_group_name  = azurerm_resource_group.NixOS.name
-  virtual_network_name = azurerm_virtual_network.example.name
+  virtual_network_name = azurerm_virtual_network.default.name
   address_prefixes     = ["10.0.2.0/24"]
 }
 
 # https://docs.microsoft.com/en-us/azure/developer/terraform/create-linux-virtual-machine-with-infrastructure
 
-resource "azurerm_public_ip" "myterraformpublicip" {
-  name                = "myPublicIP"
+resource "azurerm_public_ip" "default" {
+  name                = "default"
   location            = azurerm_resource_group.NixOS.location
   resource_group_name = azurerm_resource_group.NixOS.name
   allocation_method   = "Dynamic"
 }
 
-resource "azurerm_network_interface" "example" {
-  name                = "example-nic"
+resource "azurerm_network_interface" "default" {
+  name                = "default"
   location            = azurerm_resource_group.NixOS.location
   resource_group_name = azurerm_resource_group.NixOS.name
 
   ip_configuration {
-    name                          = "internal"
-    subnet_id                     = azurerm_subnet.example.id
+    name                          = "default"
+    subnet_id                     = azurerm_subnet.default.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.myterraformpublicip.id
+    public_ip_address_id          = azurerm_public_ip.default.id
   }
 }
 
@@ -50,7 +50,7 @@ resource "azurerm_linux_virtual_machine" "NixOS" {
   }
 
   network_interface_ids = [
-    azurerm_network_interface.example.id,
+    azurerm_network_interface.default.id,
   ]
 
   os_disk {
@@ -59,5 +59,5 @@ resource "azurerm_linux_virtual_machine" "NixOS" {
   }
 
   # The final job finished. I'm exhausted.
-  source_image_id = azurerm_image.nixos-image.id
+  source_image_id = azurerm_image.nixos.id
 }
