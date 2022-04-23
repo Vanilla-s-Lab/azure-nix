@@ -25,8 +25,8 @@ resource "azurerm_storage_blob" "nixos-disk" {
   source                 = "./result/disk.vhd"
 }
 
-resource "azurerm_image" "nixos-image" {
-  name                = "nixos-image"
+resource "azurerm_image" "nixos" {
+  name                = "nixos"
   location            = azurerm_storage_account.NixOS_Images.location
   resource_group_name = azurerm_resource_group.NixOS.name
 
