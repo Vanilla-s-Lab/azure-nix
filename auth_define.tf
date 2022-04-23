@@ -1,5 +1,8 @@
 resource "azuread_application" "Terraform" {
   display_name = "Terraform"
+
+  # https://github.com/logos
+  logo_image = filebase64("./GitHub-Mark.png")
 }
 
 resource "azuread_application_password" "default" {
