@@ -42,10 +42,11 @@ resource "azurerm_linux_virtual_machine" "NixOS" {
   location            = azurerm_resource_group.NixOS.location
   size                = "Standard_B1ls" # Cheapest server (?
 
-  admin_username                  = "adminuser"
+  admin_username                  = "azureuser"
   disable_password_authentication = true
+
   admin_ssh_key {
-    username   = "adminuser"
+    username   = "azureuser"
     public_key = file("./data/ssh-rsa.pub")
   }
 
