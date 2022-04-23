@@ -1,5 +1,12 @@
 name: update_image
-on: [ push, workflow_dispatch ]
+
+# on: [ push, workflow_dispatch ]
+# https://github.community/t/how-can-i-disable-a-github-action/17049/15
+
+on:
+  push:
+    branches-ignore:
+      - '**'
 
 permissions:
   id-token: write
