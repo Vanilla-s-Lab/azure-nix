@@ -47,7 +47,7 @@ resource "azurerm_linux_virtual_machine" "NixOS" {
 
   admin_ssh_key {
     username   = "azureuser"
-    public_key = file("./data/ssh-rsa.pub")
+    public_key = file("./ssh-rsa.pub")
   }
 
   network_interface_ids = [
