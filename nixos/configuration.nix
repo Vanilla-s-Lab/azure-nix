@@ -1,7 +1,8 @@
 { modulesPath, lib, ... }:
 {
   imports = [ "${modulesPath}/virtualisation/azure-image.nix" ]
-    ++ [ ./users.nix ./network.nix ./packages.nix ];
+    ++ [ ./users.nix ./network.nix ./packages.nix ]
+    ++ [ ./nginx.nix ];
 
   services.openssh.passwordAuthentication = false;
   services.openssh.challengeResponseAuthentication = false;
