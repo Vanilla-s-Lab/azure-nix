@@ -55,6 +55,7 @@ resource "azurerm_linux_virtual_machine" "NixOS" {
   ]
 
   os_disk {
+    name                 = "nixos-system"
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
     disk_size_gb         = "4" # GB, 2x.
