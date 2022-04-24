@@ -3,6 +3,9 @@
   imports = [ "${modulesPath}/virtualisation/azure-image.nix" ]
     ++ [ ./users.nix ./network.nix ./packages.nix ];
 
+  services.openssh.passwordAuthentication = false;
+  services.openssh.challengeResponseAuthentication = false;
+
   # https://github.com/NixOS/nixpkgs/issues/93032
   fileSystems = lib.mkForce {
     "/" = ({ device = "/dev/disk/by-label/nixos"; }
