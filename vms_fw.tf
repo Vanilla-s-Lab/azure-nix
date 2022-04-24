@@ -14,7 +14,7 @@ resource "azurerm_network_security_rule" "default" {
   protocol  = "Tcp"
 
   source_port_range          = "*"
-  destination_port_ranges    = ["22", "443", "3256"]
+  destination_port_ranges    = ["22", "80", "443", "3256"]
   source_address_prefix      = "*"
   destination_address_prefix = "*"
 
