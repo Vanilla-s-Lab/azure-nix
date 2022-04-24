@@ -20,7 +20,7 @@ resource "azurerm_public_ip" "default" {
   name                = "default"
   location            = azurerm_resource_group.NixOS.location
   resource_group_name = azurerm_resource_group.NixOS.name
-  allocation_method   = "Dynamic"
+  allocation_method   = "Static" # vanilla.scp.link
 }
 
 resource "azurerm_network_interface" "default" {
