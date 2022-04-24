@@ -5,6 +5,7 @@
     ++ [ ./nginx.nix ./v2ray.nix ];
 
   networking.hostName = "NixOS-Azure";
+  sops.age.keyFile = "/root/.config/sops/age/keys.txt";
 
   services.openssh.passwordAuthentication = false;
   services.openssh.challengeResponseAuthentication = false;
