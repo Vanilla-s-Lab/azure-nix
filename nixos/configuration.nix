@@ -4,6 +4,8 @@
     ++ [ ./users.nix ./network.nix ./packages.nix ]
     ++ [ ./nginx.nix ./v2ray.nix ];
 
+  networking.hostName = "NixOS-Azure";
+
   services.openssh.passwordAuthentication = false;
   services.openssh.challengeResponseAuthentication = false;
 
