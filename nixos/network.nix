@@ -12,4 +12,10 @@
 
   security.acme.acceptTerms = true;
   security.acme.email = "osu_Vanilla@126.com";
+
+  # services.nginx.recommended*
+  services.nginx.recommendedTlsSettings = true;
+  services.nginx.recommendedProxySettings = true;
+  services.nginx.recommendedOptimisation = true;
+  services.nginx.recommendedGzipSettings = true;
 }
