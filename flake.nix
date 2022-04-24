@@ -9,16 +9,21 @@
     # https://github.com/Mic92/sops-nix
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+    # https://github.com/nixos-cn/flakes/tree/main/modules/sops
+    nixos-cn.url = "github:nixos-cn/flakes";
+    nixos-cn.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, deploy-rs, nixpkgs-unstable, sops-nix, ... }: rec {
+  outputs = { self, nixpkgs, deploy-rs, nixpkgs-unstable, sops-nix, nixos-cn, ... }: rec {
     system = "x86_64-linux";
 
     azure-image = azure.config.system.build.azureImage;
     azure = nixpkgs.lib.nixosSystem {
       inherit system;
       modules = [ ./nixos/configuration.nix ]
-        ++ [ sops-nix.nixosModules.sops ];
+        ++ [ sops-nix.nixosModules.sops ]
+        ++ [ nixos-cn.nixosModules.nixos-cn ];
     };
 
     pkgs = import nixpkgs { inherit system; };
