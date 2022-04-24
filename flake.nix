@@ -5,15 +5,20 @@
 
     # https://github.com/serokell/deploy-rs
     deploy-rs.url = "github:serokell/deploy-rs";
+
+    # https://github.com/Mic92/sops-nix
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, deploy-rs, nixpkgs-unstable, ... }: rec {
+  outputs = { self, nixpkgs, deploy-rs, nixpkgs-unstable, sops-nix, ... }: rec {
     system = "x86_64-linux";
 
     azure-image = azure.config.system.build.azureImage;
     azure = nixpkgs.lib.nixosSystem {
       inherit system;
-      modules = [ ./nixos/configuration.nix ];
+      modules = [ ./nixos/configuration.nix ]
+        ++ [ sops-nix.nixosModules.sops ];
     };
 
     pkgs = import nixpkgs { inherit system; };
