@@ -29,7 +29,7 @@
 
     deploy.nodes.azure = {
       sshUser = "root";
-      hostname = "20.239.149.117";
+      hostname = "20.24.195.187";
 
       profiles.system.path =
         deploy-rs.lib."${system}".activate.nixos

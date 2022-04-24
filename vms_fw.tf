@@ -6,15 +6,15 @@ resource "azurerm_network_security_group" "default" {
   resource_group_name = azurerm_resource_group.NixOS.name
 }
 
-resource "azurerm_network_security_rule" "SSH" {
-  name      = "SSH"
+resource "azurerm_network_security_rule" "default" {
+  name      = "default"
   priority  = 100
   direction = "Inbound"
   access    = "Allow"
   protocol  = "Tcp"
 
   source_port_range          = "*"
-  destination_port_range     = "22"
+  destination_port_ranges    = ["22", "80", "443"]
   source_address_prefix      = "*"
   destination_address_prefix = "*"
 
