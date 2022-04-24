@@ -1,15 +1,13 @@
 {
   inputs = {
-    # https://github.com/NixOS/nixpkgs/issues/93032
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-21.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # https://github.com/NixOS/nixpkgs/pull/169829
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-21.11";
-
+    # https://github.com/serokell/deploy-rs
     deploy-rs.url = "github:serokell/deploy-rs";
   };
 
-  outputs = { self, nixpkgs, deploy-rs, nixpkgs-stable, ... }: rec {
+  outputs = { self, nixpkgs, deploy-rs, nixpkgs-unstable, ... }: rec {
     system = "x86_64-linux";
 
     azure-image = azure.config.system.build.azureImage;
@@ -19,13 +17,14 @@
     };
 
     pkgs = import nixpkgs { inherit system; };
-    pkgsStable = import nixpkgs-stable { inherit system; };
+    pkgsUnstable = import nixpkgs-unstable { inherit system; };
 
     devShell."${system}" = pkgs.mkShell {
       name = "Terraform_Azure";
-      nativeBuildInputs = (with pkgs;
+      nativeBuildInputs = (with pkgsUnstable;
         [ terraform azure-storage-azcopy gh ])
-      ++ pkgs.lib.singleton (pkgsStable.azure-cli);
+      # https://github.com/NixOS/nixpkgs/pull/169829
+      ++ pkgs.lib.singleton (pkgs.azure-cli);
     };
 
     deploy.nodes.azure = {
