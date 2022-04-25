@@ -2,8 +2,8 @@
 {
   imports = [ "${modulesPath}/virtualisation/azure-image.nix" ]
     ++ [ ./users.nix ./network.nix ./packages.nix ]
-    ++ [ ./v2ray.nix ]
-    ++ [ ../sops-config/mtprotoproxy.nix ];
+    ++ [ ./v2ray.nix ./caddy.nix ]
+    ++ [ ../sops-config/mtprotoproxy.nix ../sops-config/caddy.nix ];
 
   networking.hostName = "NixOS-Azure";
   sops.age.keyFile = "/root/.config/sops/age/keys.txt";
