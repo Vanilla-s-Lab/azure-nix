@@ -14,4 +14,9 @@
 
   networking.firewall.allowedTCPPorts =
     (lib.singleton config.services.mtprotoproxy.port);
+
+  services.influxdb2.enable = true;
+  services.influxdb2.settings = {
+    http-bind-address = "127.0.0.1:8086";
+  };
 }

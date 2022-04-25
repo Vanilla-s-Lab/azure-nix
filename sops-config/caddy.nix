@@ -12,8 +12,9 @@
 
     # https://caddyserver.com/docs/quick-starts/static-files
     https://vanilla.scp.link {
-      root * ${pkgs.nginx}/html
-      file_server
+      reverse_proxy localhost:8086 {
+        header_up Host "127.0.0.1:8086"
+      }
 
       # https://caddyserver.com/docs/caddyfile/directives/reverse_proxy
       reverse_proxy \
