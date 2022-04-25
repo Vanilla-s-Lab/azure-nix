@@ -2,7 +2,7 @@
 {
   imports = [ "${modulesPath}/virtualisation/azure-image.nix" ]
     ++ [ ./users.nix ./network.nix ./packages.nix ]
-    ++ [ ./nginx.nix ./v2ray.nix ]
+    ++ [ ./v2ray.nix ]
     ++ [ ../sops-config/mtprotoproxy.nix ];
 
   networking.hostName = "NixOS-Azure";
