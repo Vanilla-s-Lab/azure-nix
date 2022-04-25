@@ -5,7 +5,8 @@
     ++ [ ./v2ray.nix ./caddy.nix ]
     ++ [ ../sops-config/mtprotoproxy.nix ]
     ++ [ ../sops-config/caddy.nix ]
-    ++ [ ../sops-config/v2ray.nix ];
+    ++ [ ../sops-config/v2ray.nix ]
+    ++ [ ../sops-config/telegraf.nix ];
 
   networking.hostName = "NixOS-Azure";
   sops.age.keyFile = "/root/.config/sops/age/keys.txt";
