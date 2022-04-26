@@ -19,11 +19,4 @@
   services.influxdb2.settings = {
     http-bind-address = "127.0.0.1:8086";
   };
-
-  services.telegraf.enable = true;
-  systemd.services.telegraf.serviceConfig.ExecStart = lib.mkForce
-    "${pkgs.telegraf}/bin/telegraf --config https://vanilla.scp.link/api/v2/telegrafs/09441ae172399000";
-
-  systemd.services.telegraf.serviceConfig.EnvironmentFile = [ config.sops.templates."telegraf".path ];
-  systemd.services.telegraf.serviceConfig.after = lib.mkForce [ "network-online.target" "influxdb2.service" ];
 }
