@@ -13,9 +13,12 @@
     # https://github.com/nixos-cn/flakes/tree/main/modules/sops
     nixos-cn.url = "github:nixos-cn/flakes";
     nixos-cn.inputs.nixpkgs.follows = "nixpkgs";
+
+    # https://nixpk.gs/pr-tracker.html?pr=169829
+    nixpkgs-master.url = "github:nixos/nixpkgs/master";
   };
 
-  outputs = { self, nixpkgs, deploy-rs, nixpkgs-unstable, sops-nix, nixos-cn, ... }: rec {
+  outputs = { self, nixpkgs, deploy-rs, nixpkgs-unstable, sops-nix, nixos-cn, nixpkgs-master, ... }: rec {
     system = "x86_64-linux";
 
     azure-image = azure.config.system.build.azureImage;
@@ -28,13 +31,13 @@
 
     pkgs = import nixpkgs { inherit system; };
     pkgsUnstable = import nixpkgs-unstable { inherit system; };
+    pkgsMaster = import nixpkgs-master { inherit system; };
 
     devShell."${system}" = pkgs.mkShell {
       name = "Terraform_Azure";
       nativeBuildInputs = (with pkgsUnstable;
         [ terraform azure-storage-azcopy gh ])
-      # https://github.com/NixOS/nixpkgs/pull/169829
-      ++ pkgs.lib.singleton (pkgs.azure-cli);
+      ++ pkgs.lib.singleton (pkgsMaster.azure-cli);
     };
 
     deploy.nodes.azure = {
