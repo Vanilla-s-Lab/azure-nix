@@ -1,7 +1,7 @@
 { modulesPath, lib, pkgs, ... }:
 {
   imports = [ "${modulesPath}/virtualisation/azure-image.nix" ]
-    ++ [ ./network.nix ./v2ray.nix ]
+    ++ [ ./network.nix ./v2ray.nix ./nginx.nix ]
     ++ [ ../sops-config/mtprotoproxy.nix ]
     ++ [ ../sops-config/v2ray.nix ];
 
