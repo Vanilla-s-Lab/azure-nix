@@ -5,6 +5,10 @@
     ++ [ ../sops-config/mtprotoproxy.nix ]
     ++ [ ../sops-config/v2ray.nix ];
 
+  boot.kernelPackages = pkgs.linuxPackages_lqx;
+  boot.kernelModules = (lib.singleton "tcp_bbr");
+  boot.kernel.sysctl."net.ipv4.tcp_congestion_control" = "bbr";
+
   users.defaultUserShell = pkgs.fish;
   users.users.root.openssh.authorizedKeys.keyFiles =
     (lib.singleton ../ssh-rsa.pub);
