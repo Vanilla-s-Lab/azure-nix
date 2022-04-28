@@ -4,14 +4,13 @@ let caddy = "/.local/share/caddy"; in
 let acme = "acme-v02.api.letsencrypt.org"; in
 let domain = "vanilla.scp.link"; in
 {
-  sops.secrets."v2ray/port".sopsFile = ../secrets/v2ray.yaml;
   sops.secrets."v2ray/id".sopsFile = ../secrets/v2ray.yaml;
   sops.secrets."v2ray/path".sopsFile = ../secrets/v2ray.yaml;
 
   sops.templates."v2ray".content = (builtins.toJSON {
     inbounds = (lib.singleton {
-      port = config.sops.placeholder."v2ray/port";
-      listen = "127.0.0.1";
+      port = 22443;
+      listen = "0.0.0.0";
 
       protocol = "vless";
       settings = {
@@ -33,8 +32,8 @@ let domain = "vanilla.scp.link"; in
         tlsSettings = {
           serverName = "vanilla.scp.link";
           certificates = (lib.singleton {
-            certificateFile = "${home}${caddy}/certificates/${acme}-directory/${domain}/${domain}.crt";
-            keyFile = "${home}${caddy}/certificates/${acme}-directory/${domain}/${domain}.key";
+            certificateFile = "/var/lib/acme/vanilla.scp.link/cert.pem";
+            keyFile = "/var/lib/acme/vanilla.scp.link/key.pem";
           });
         };
       };
