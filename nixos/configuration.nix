@@ -1,16 +1,23 @@
-{ modulesPath, lib, ... }:
+{ modulesPath, lib, pkgs, ... }:
 {
   imports = [ "${modulesPath}/virtualisation/azure-image.nix" ]
-    ++ [ ./users.nix ./network.nix ./packages.nix ]
-    ++ [ ./v2ray.nix ]
+    ++ [ ./network.nix ./v2ray.nix ]
     ++ [ ../sops-config/mtprotoproxy.nix ]
     ++ [ ../sops-config/v2ray.nix ];
+
+  users.defaultUserShell = pkgs.fish;
+  users.users.root.openssh.authorizedKeys.keyFiles =
+    (lib.singleton ../ssh-rsa.pub);
 
   networking.hostName = "NixOS-Azure";
   sops.age.keyFile = "/root/.config/sops/age/keys.txt";
 
   services.openssh.passwordAuthentication = false;
   services.openssh.challengeResponseAuthentication = false;
+
+  # https://github.com/Mic92/sops-nix
+  environment.systemPackages = with pkgs;
+    [ htop age speedtest-cli jq ];
 
   # https://github.com/NixOS/nixpkgs/issues/93032
   fileSystems = lib.mkForce {
