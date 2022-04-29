@@ -6,8 +6,9 @@
     ++ [ ../sops-config/v2ray.nix ];
 
   boot.kernelPackages = pkgs.linuxPackages_lqx;
-  boot.kernelModules = (lib.singleton "tcp_bbr");
-  boot.kernel.sysctl."net.ipv4.tcp_congestion_control" = "bbr";
+  boot.initrd.availableKernelModules = [ "tcp_bbr2" ];
+  boot.kernel.sysctl."net.core.default_qdisc" = "fq";
+  boot.kernel.sysctl."net.ipv4.tcp_congestion_control" = "bbr2";
 
   users.defaultUserShell = pkgs.fish;
   users.users.root.openssh.authorizedKeys.keyFiles =
