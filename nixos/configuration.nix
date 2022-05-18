@@ -22,7 +22,7 @@
 
   # https://github.com/Mic92/sops-nix
   environment.systemPackages = with pkgs;
-    [ htop age speedtest-cli jq ];
+    [ htop age speedtest-cli jq wget ];
 
   # https://github.com/NixOS/nixpkgs/issues/93032
   fileSystems = lib.mkForce {
