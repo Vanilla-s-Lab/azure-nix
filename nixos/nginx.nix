@@ -7,7 +7,7 @@
       locations."/pgc/player/api/playurl".proxyPass = "https://api.bilibili.com";
     });
 
-  security.acme.email = "osu_Vanilla@126.com";
+  security.acme.defaults.email = "osu_Vanilla@126.com";
   security.acme.acceptTerms = true;
 
   networking.firewall.allowedTCPPorts = [ 80 443 ];

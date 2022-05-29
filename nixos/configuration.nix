@@ -18,7 +18,7 @@
   sops.age.keyFile = "/root/.config/sops/age/keys.txt";
 
   services.openssh.passwordAuthentication = false;
-  services.openssh.challengeResponseAuthentication = false;
+  services.openssh.kbdInteractiveAuthentication = false;
 
   # https://github.com/Mic92/sops-nix
   environment.systemPackages = with pkgs;

@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-21.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-22.05";
 
     # https://github.com/serokell/deploy-rs
     deploy-rs.url = "github:serokell/deploy-rs";
