@@ -5,7 +5,9 @@
     ++ [ ../sops-config/mtprotoproxy.nix ]
     ++ [ ../sops-config/v2ray.nix ];
 
-  boot.kernelPackages = pkgs.linuxPackages_lqx;
+  system.stateVersion = "22.05";
+  boot.kernelPackages = pkgs.linuxPackages_zen;
+
   boot.initrd.availableKernelModules = [ "tcp_bbr2" ];
   boot.kernel.sysctl."net.core.default_qdisc" = "fq";
   boot.kernel.sysctl."net.ipv4.tcp_congestion_control" = "bbr2";
