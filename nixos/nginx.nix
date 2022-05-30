@@ -7,6 +7,11 @@
       locations."/pgc/player/api/playurl".proxyPass = "https://api.bilibili.com";
     });
 
+  services.nginx.recommendedOptimisation = true;
+  services.nginx.recommendedTlsSettings = true;
+  services.nginx.recommendedGzipSettings = true;
+  services.nginx.recommendedProxySettings = true;
+
   security.acme.defaults.email = "osu_Vanilla@126.com";
   security.acme.acceptTerms = true;
 
