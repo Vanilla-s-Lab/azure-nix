@@ -1,5 +1,5 @@
 keys:
-  - &vanilla age1sphcw086snupky9p33hclkpvveg3va56sfqqcvzgv5tqc4wwuq3s9vka95
+  - &vanilla age1qcw4ynnhxcy8rfvx7rcfelg44esxsq20ke649x0anmw03zts0vpqd2wuwj
   - &nixos-azure age1h0n0t8dadsk5k5t4p204x2q0a8ysef6gscx8tuunmkvcmzdffcysa0dfjy
 creation_rules:
   - path_regex: secrets/[^/]+\.yaml$
