@@ -14,4 +14,9 @@
 
   networking.firewall.allowedTCPPorts =
     (lib.singleton config.services.mtprotoproxy.port);
+
+  # ssh -L 6800:localhost:6800 root@20.24.195.187
+
+  services.aria2.enable = true;
+  services.aria2.downloadDir = "/root";
 }
