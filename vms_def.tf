@@ -58,7 +58,9 @@ resource "azurerm_linux_virtual_machine" "NixOS" {
     name                 = "nixos-system"
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
-    disk_size_gb         = "4" # GB, 2x.
+
+    disk_size_gb         = "8" # GB.
+    # It also with (?) 4 GB (in case) temp disk.
   }
 
   # The final job finished. I'm exhausted.
