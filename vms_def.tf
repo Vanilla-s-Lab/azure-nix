@@ -64,21 +64,3 @@ resource "azurerm_linux_virtual_machine" "NixOS" {
   # The final job finished. I'm exhausted.
   source_image_id = azurerm_image.nixos.id
 }
-
-# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_machine_data_disk_attachment
-
-resource "azurerm_managed_disk" "nixos-data" {
-  name                 = "nixos-data"
-  location             = azurerm_resource_group.NixOS.location
-  resource_group_name  = azurerm_resource_group.NixOS.name
-  storage_account_type = "Standard_LRS"
-  create_option        = "Empty"
-  disk_size_gb         = 4 # GB
-}
-
-resource "azurerm_virtual_machine_data_disk_attachment" "data" {
-  managed_disk_id    = azurerm_managed_disk.nixos-data.id
-  virtual_machine_id = azurerm_linux_virtual_machine.NixOS.id
-  lun                = "10"
-  caching            = "ReadWrite"
-}
