@@ -1,10 +1,11 @@
 { pkgs, ... }:
+let AriaNg = pkgs.callPackage ../packages/AriaNg.nix { }; in
 {
   services.nginx.enable = true;
   services.nginx.package = pkgs.nginxQuic;
   services.nginx.virtualHosts."vanilla.scp.link" =
     ({ addSSL = true; /* onlySSL = true; */ enableACME = true; }
-      // { http2 = true; http3 = true; kTLS = true; });
+      // { http2 = true; http3 = true; kTLS = true; root = AriaNg; });
 
   services.nginx.recommendedOptimisation = true;
   services.nginx.recommendedTlsSettings = true;
